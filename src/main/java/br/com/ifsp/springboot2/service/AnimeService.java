@@ -3,6 +3,7 @@
 package br.com.ifsp.springboot2.service;
 
 import br.com.ifsp.springboot2.domain.Anime;
+import br.com.ifsp.springboot2.mapper.AnimeMapper;
 import br.com.ifsp.springboot2.repository.AnimeRepository;
 import br.com.ifsp.springboot2.requests.AnimePostRequestBody;
 import br.com.ifsp.springboot2.requests.AnimePutRequestBody;
@@ -29,8 +30,7 @@ public class AnimeService {
     }
 
     public Anime save(AnimePostRequestBody animePostRequestBody) {
-        //salva o objeto (anime) e retorna com um id
-        return animeRepository.save(Anime.builder().name(animePostRequestBody.getName()).build());
+        return animeRepository.save(AnimeMapper.INSTANCE.toAnime(animePostRequestBody));
     }
 
     public void delete(long id) {
@@ -39,11 +39,8 @@ public class AnimeService {
 
     public void replace(AnimePutRequestBody animePutRequestBody) {
         Anime savedAnime = findByIdOrThrowBadRequestException(animePutRequestBody.getId());
-        Anime anime = Anime.builder()
-                .id(savedAnime.getId()) //certeza que id é o que está no BD
-                .name(savedAnime.getName())
-                .build();
+        Anime anime = AnimeMapper.INSTANCE.toAnime(animePutRequestBody);
+        anime.setId(savedAnime.getId());
         animeRepository.save(anime);
-
     }
 }
