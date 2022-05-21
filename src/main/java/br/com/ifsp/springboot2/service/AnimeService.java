@@ -43,6 +43,6 @@ public class AnimeService {
     public void replace(Anime anime) {
         delete(anime.getId());//pesquisa, se não existir: BAD_REQUEST, se existir: vê na lista
         animes.add(anime);//adiciona novo valor
-        
+
     }
 }
