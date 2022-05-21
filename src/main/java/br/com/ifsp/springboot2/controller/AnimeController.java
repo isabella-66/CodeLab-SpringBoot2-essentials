@@ -42,4 +42,10 @@ public class AnimeController {
         animeService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT); //não retorna nada
     }
+
+    @PutMapping
+    public ResponseEntity<Void> replace(@RequestBody Anime anime) {
+        animeService.replace(anime);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
