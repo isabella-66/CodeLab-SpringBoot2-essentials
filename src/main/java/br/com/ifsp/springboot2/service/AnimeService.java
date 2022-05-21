@@ -35,4 +35,8 @@ public class AnimeService {
         animes.add(anime);
         return anime;
     }
+
+    public void delete(long id) {
+        animes.remove(findById(id)); //se tentar remover anime, verifica se existe e remove da lista
+    }
 }
