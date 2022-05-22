@@ -33,17 +33,28 @@ public class SpringClient {
         //@formatter:on
         log.info(exchange.getBody()); //valid ResponseEntity
 
-//        Anime kingdom = Anime.builder().name("kingdom").build(); //criando objeto
-//        Anime kingdomSaved = new RestTemplate().postForObject("http://localhost:8080/animes/all", kingdom,
-//                Anime.class); //no Controller retorna o próprio objeto
-//        log.info("Saved anime {}", kingdomSaved);
-
         Anime samuraiChamploo = Anime.builder().name("Samurai Champloo").build();
         ResponseEntity<Anime> samuraiChamplooSaved = new RestTemplate().exchange("http://localhost:8080/animes/all",
-                HttpMethod.GET,
-                new HttpEntity<>(samuraiChamploo),
+                HttpMethod.POST,
+                new HttpEntity<>(samuraiChamploo, createJsonHeader()),
                 Anime.class); //getBody() retorna diretamente
         log.info("Saved anime {}", samuraiChamplooSaved); //exchange poderoso - pode mandar headers http dentro do HttpEntity
+
+        Anime animeToBeUpdated = samuraiChamplooSaved.getBody();
+        animeToBeUpdated.setName("Samurai Champloo s3");
+
+        ResponseEntity<Void> samuraiChamplooUpdated = new RestTemplate().exchange("http://localhost:8080/animes/",
+                HttpMethod.PUT,
+                new HttpEntity<>(animeToBeUpdated, createJsonHeader()),
+                Void.class);
+        log.info(samuraiChamplooUpdated);
+
+        ResponseEntity<Void> samuraiChamplooDeleted = new RestTemplate().exchange("http://localhost:8080/animes/{id}",
+                HttpMethod.DELETE,
+                null,
+                Void.class,
+                animeToBeUpdated.getId());
+        log.info(samuraiChamplooDeleted);
     }
 
     //enviando header dizendo que content type dessa requisição é um aplication JSON
