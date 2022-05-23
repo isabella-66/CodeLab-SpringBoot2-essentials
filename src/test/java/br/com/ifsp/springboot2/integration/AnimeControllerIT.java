@@ -206,8 +206,6 @@ public class AnimeControllerIT {
         Anime savedAnime = animeRepository.save(AnimeCreator.createAnimeToBeSaved());
         devDojoUserRepository.save(ADMIN);
 
-        savedAnime.setName("new name");
-
         ResponseEntity<Void> animeResponseEntity = testRestTemplateRoleAdmin.exchange("/animes/admin/{id}",
                 HttpMethod.DELETE, null, Void.class, savedAnime.getId());
 
@@ -220,8 +218,6 @@ public class AnimeControllerIT {
     void delete_Returns403_WhenUserIsNotAdmin() {
         Anime savedAnime = animeRepository.save(AnimeCreator.createAnimeToBeSaved());
         devDojoUserRepository.save(USER);
-
-        savedAnime.setName("new name");
 
         ResponseEntity<Void> animeResponseEntity = testRestTemplateRoleUser.exchange("/animes/admin/{id}",
                 HttpMethod.DELETE, null, Void.class, savedAnime.getId());
