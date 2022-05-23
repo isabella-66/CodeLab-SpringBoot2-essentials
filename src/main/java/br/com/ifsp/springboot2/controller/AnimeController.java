@@ -41,7 +41,7 @@ public class AnimeController {
     }
 
     //identificando usuário autenticado na requisição
-    @GetMapping({"/{by-id}"})
+    @GetMapping({"/by-id/{id}"})
     public ResponseEntity<Anime> findByIdAuthenticationPrincipal(@PathVariable long id,
                                                                  @AuthenticationPrincipal UserDetails userDetails) {
         log.info(userDetails);
