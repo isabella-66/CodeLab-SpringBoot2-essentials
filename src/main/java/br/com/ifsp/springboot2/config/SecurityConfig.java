@@ -14,6 +14,16 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 @Log4j2
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    /**
+     * BasicAuthenticationFilter
+     * UsernamePasswordAuthenticationFilter
+     * DefaultLoginPageGeneratingFilter
+     * DefaultLogoutPageGeneratingFilter
+     * FilterSecurityInterceptor
+     * Authentication -> Authorization
+     * @param http
+     * @throws Exception
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //todas as requisições, URLs, que tem o controller, precisarão passar por autenticação básica
@@ -23,6 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests() //o que quer proteger
                 .anyRequest() //todas as requisições
                 .authenticated() //requisições autenticadas
+                .and()
+                .formLogin() //página login padrão
                 .and()
                 .httpBasic(); //forma de autenticação
     }
