@@ -7,7 +7,7 @@ Realização dos códigos do curso de Spring Boot 2 - prof. William, canal "devd
 
 ## CODIFICAÇÃO
 
-Foi realizado o CRUD para registro e aplicado Spring Security.
+Foi realizado o CRUD para registro e foi aplicado o Spring Security.
 
 
 ## OBJETIVO
