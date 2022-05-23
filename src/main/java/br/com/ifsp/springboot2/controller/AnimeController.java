@@ -44,7 +44,6 @@ public class AnimeController {
 
     //identificando usuário autenticado na requisição
     @GetMapping({"/{by-id}"})
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Anime> findByIdAuthenticationPrincipal(@PathVariable long id,
                                                                  @AuthenticationPrincipal UserDetails userDetails) {
         log.info(userDetails);
@@ -57,8 +56,6 @@ public class AnimeController {
     }
 
     @PostMapping
-    //AntesDeAutorizar/Autenticar("QualRoleQuerQueUserTenha('Role')")
-    @PreAuthorize("hasRole('ADMIN')") //precisa ser admin para executar o 'save'
     public ResponseEntity<Anime> save(@RequestBody @Valid AnimePostRequestBody animePostRequestBody) {
         return new ResponseEntity<>(animeService.save(animePostRequestBody), HttpStatus.CREATED);
     }
