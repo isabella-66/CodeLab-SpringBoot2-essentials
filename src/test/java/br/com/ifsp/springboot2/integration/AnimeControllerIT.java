@@ -100,8 +100,8 @@ public class AnimeControllerIT {
     }
 
     @Test
-    @DisplayName("listAllNonPageable returns list of anime when successful")
-    void listAllNonPageable_ReturnsListOfAnime_WhenSuccessful() {
+    @DisplayName("listAll returns list of anime when successful")
+    void listAll_ReturnsListOfAnime_WhenSuccessful() {
         Anime savedAnime = animeRepository.save(AnimeCreator.createAnimeToBeSaved());
         devDojoUserRepository.save(USER);
 
